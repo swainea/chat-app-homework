@@ -5,11 +5,8 @@
   var userData = {};
 
   window.chat.init(function messageHandler(data) {
-    console.log(data.message);
+    // console.log(data.message);
     renderMessage(data.message, data.username);
-     // this is printing my message
-    // when the server send you an object
-    // here is where we are going to append to the HTML
   });
 
   $('#login').submit(function buttonHandler(event){
@@ -24,7 +21,7 @@
       success: function handleUserData (data){
         userData.username = data.username;
         userData.token = data.token;
-        console.log(userData);
+        // console.log(userData);
       }
     });
     switchToChat();
@@ -33,18 +30,18 @@
   function switchToChat() {
     $('#login').remove();
     $('#chat').css('display', 'block');
-    console.log('switched Ids');
+    // console.log('switched Ids');
   }
 
   function renderMessage(message, username){
-    $('#messages').append( $('<p>').text(message));
-    $('#messages').append( $('<p>').text(username));
+    $('#messages').append( $('<p>').text(message)
+      .append( $('<cite>').text(username)));
     $('.message').val("");
   }
 
   $('#send-message').submit(function buttonHandler(event){
     event.preventDefault();
-    console.log('message button works');
+    // console.log('message button works');
     var messageInput = $('.message').val();
     $.ajax({
       type: 'POST',
@@ -55,7 +52,7 @@
         authorization: userData.token
       },
       success: function handleMessageData (){
-        console.log ('message success');
+        // console.log ('message success');
       }
     });
   });
